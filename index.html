@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onde Assistir? 🎬 — Descubra em qual Streaming está seu Filme ou Série</title>
+  <meta name="description" content="Pesquise qualquer filme ou série, veja as capas oficiais e descubra instantaneamente em qual plataforma de streaming está disponível no Brasil." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #090b10;
+      --bg-secondary: #11151f;
+      --bg-card: #161b28;
+      --bg-card-hover: #1e2536;
+      --glass: rgba(22, 27, 40, 0.78);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(99, 102, 241, 0.5);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.35);
+      --accent-2: #ec4899;
+      --green: #10b981;
+      --green-bg: rgba(16, 185, 129, 0.14);
+      --amber: #f59e0b;
+      --amber-bg: rgba(245, 158, 11, 0.14);
+      --blue: #3b82f6;
+      --blue-bg: rgba(59, 130, 246, 0.14);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      background-image:
+        radial-gradient(circle at 15% 0%, rgba(99, 102, 241, 0.16), transparent 40%),
+        radial-gradient(circle at 85% 10%, rgba(236, 72, 153, 0.12), transparent 35%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Header & Hero */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(9, 11, 16, 0.82);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+    }
+
+    .header-inner {
+      max-width: 1340px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+
+    .brand-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #fff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .country-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* Hero Search Section */
+    .hero {
+      max-width: 980px;
+      margin: 34px auto 22px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+      line-height: 1.15;
+    }
+
+    .hero-title .gradient {
+      background: linear-gradient(90deg, #818cf8, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 620px;
+      margin: 0 auto 24px;
+    }
+
+    /* Search Bar */
+    .search-box-wrap {
+      position: relative;
+      max-width: 740px;
+      margin: 0 auto 20px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--bg-secondary);
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 6px 8px 6px 22px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+      transition: all 0.22s ease;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 14px 40px var(--accent-glow);
+      background: #141926;
+    }
+
+    .search-icon {
+      font-size: 1.2rem;
+      margin-right: 12px;
+      color: var(--text-secondary);
+    }
+
+    .search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 1.05rem;
+      font-family: inherit;
+      font-weight: 500;
+      padding: 10px 0;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .clear-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: var(--text-secondary);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+      font-size: 0.9rem;
+      transition: background 0.15s;
+    }
+
+    .clear-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .search-btn {
+      background: linear-gradient(135deg, var(--accent), #4f46e5);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+
+    .search-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+
+    /* Filter Pills */
+    .filters-bar {
+      max-width: 1340px;
+      margin: 0 auto 24px;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      user-select: none;
+    }
+
+    .filter-chip:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .filter-chip.active {
+      background: linear-gradient(135deg, var(--accent), #4f46e5);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+
+    .provider-chip {
+      padding: 6px 13px;
+      font-size: 0.8rem;
+    }
+
+    .provider-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Section Header */
+    .main-container {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .results-count {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* Movies/Series Grid */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+      gap: 22px;
+    }
+
+    @media (max-width: 540px) {
+      .media-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+    }
+
+    .media-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      position: relative;
+    }
+
+    .media-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55);
+    }
+
+    .poster-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      background: #0d111a;
+      overflow: hidden;
+    }
+
+    .poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .media-card:hover .poster-img {
+      transform: scale(1.05);
+    }
+
+    .poster-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      background: linear-gradient(145deg, #121722, #1c2436);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .poster-placeholder span {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+
+    .badge-top-left {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(9, 11, 16, 0.82);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 4px 9px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .badge-top-left.show {
+      background: rgba(236, 72, 153, 0.85);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .badge-top-left.movie {
+      background: rgba(99, 102, 241, 0.85);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .badge-rating {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(9, 11, 16, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Card Content & Streaming Bar */
+    .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.3;
+    }
+
+    .card-meta {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Streaming Providers Preview inside Card */
+    .card-streams {
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    .streams-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .streams-label.available {
+      color: #34d399;
+    }
+
+    .streams-label.rent {
+      color: #fbbf24;
+    }
+
+    .streams-label.unavailable {
+      color: var(--text-muted);
+    }
+
+    .provider-icons-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .provider-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3px 8px 3px 4px;
+      border-radius: 8px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      max-width: 100%;
+    }
+
+    .provider-mini img {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .provider-mini span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .more-providers {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 4px 7px;
+      border-radius: 6px;
+    }
+
+    /* Skeleton Loader */
+    .skeleton-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 410px;
+      position: relative;
+    }
+
+    .shimmer {
+      background: linear-gradient(90deg, #161b28 25%, #22293d 50%, #161b28 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Modal Details */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(4, 6, 10, 0.84);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 22px;
+      max-width: 860px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75);
+      animation: modalPop 0.22s ease-out;
+    }
+
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 10;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(9, 11, 16, 0.75);
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .modal-close:hover {
+      background: rgba(239, 68, 68, 0.85);
+      border-color: transparent;
+    }
+
+    .modal-hero {
+      position: relative;
+      min-height: 240px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 28px;
+    }
+
+    .modal-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg-secondary) 8%, rgba(17, 21, 31, 0.55) 60%, rgba(17, 21, 31, 0.4) 100%);
+    }
+
+    .modal-header-info {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 22px;
+      align-items: flex-end;
+      width: 100%;
+    }
+
+    .modal-poster {
+      width: 135px;
+      aspect-ratio: 2 / 3;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      flex-shrink: 0;
+      background: #0d111a;
+    }
+
+    @media (max-width: 600px) {
+      .modal-header-info {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .modal-poster {
+        width: 105px;
+      }
+    }
+
+    .modal-title-group {
+      flex: 1;
+    }
+
+    .modal-title {
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .modal-orig-title {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tag-pill {
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .modal-body {
+      padding: 8px 28px 28px;
+    }
+
+    .modal-synopsis {
+      color: #cbd5e1;
+      font-size: 0.94rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Offer Sections inside Modal */
+    .offer-group {
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .offer-group-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
+    }
+
+    .offer-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.18s ease;
+    }
+
+    .offer-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .offer-card img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .offer-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .offer-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .offer-sub {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .offer-go {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #818cf8;
+      flex-shrink: 0;
+    }
+
+    .trailer-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: all 0.18s;
+    }
+
+    .trailer-btn:hover {
+      background: rgba(239, 68, 68, 0.28);
+      color: #fff;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
+
+    .empty-state .icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sandboxed Bridge for CORS-free JustWatch GraphQL API calls from any static host (GitHub Pages / local file) -->
+  <iframe
+    id="jw-bridge"
+    sandbox="allow-scripts"
+    style="display:none;"
+    srcdoc="
+      <script>
+        window.addEventListener('message', async (event) => {
+          const { requestId, payload } = event.data || {};
+          if (!requestId || !payload) return;
+          try {
+            const res = await fetch('https://apis.justwatch.com/graphql', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            parent.postMessage({ requestId, ok: true, data }, '*');
+          } catch (err) {
+            parent.postMessage({ requestId, ok: false, error: String(err) }, '*');
+          }
+        });
+        parent.postMessage({ bridgeReady: true }, '*');
+      </script>
+    "
+  ></iframe>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand" onclick="resetHome()">
+        <div class="brand-icon">🎬</div>
+        <div class="brand-text">
+          <h1>Onde Assistir?</h1>
+          <span>Guia de Streaming • Filmes & Séries</span>
+        </div>
+      </div>
+      <div class="country-badge">
+        🇧🇷 Catálogo Brasil (Tempo Real)
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h2 class="hero-title">
+      Descubra em qual <span class="gradient">streaming</span> está seu filme ou série
+    </h2>
+    <p class="hero-subtitle">
+      Digite o nome de qualquer filme ou série para ver a capa, nota IMDb, sinopse e em quais plataformas assistir agora no Brasil.
+    </p>
+
+    <form class="search-box-wrap" onsubmit="handleSearchSubmit(event)">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Ex: Interestelar, The Last of Us, Batman, Cidade de Deus..."
+          autocomplete="off"
+        />
+        <button type="button" id="clearBtn" class="clear-btn" onclick="clearSearch()" title="Limpar busca">✕</button>
+        <button type="submit" class="search-btn">Buscar</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Filters -->
+  <section class="filters-bar">
+    <div class="filter-row" id="typeFilters">
+      <button class="filter-chip active" data-type="ALL" onclick="setTypeFilter('ALL')">✨ Todos</button>
+      <button class="filter-chip" data-type="MOVIE" onclick="setTypeFilter('MOVIE')">🎬 Filmes</button>
+      <button class="filter-chip" data-type="SHOW" onclick="setTypeFilter('SHOW')">📺 Séries</button>
+    </div>
+
+    <div class="filter-row" id="providerFilters">
+      <button class="filter-chip provider-chip active" data-pkg="" onclick="setProviderFilter('')">🌐 Todas as Plataformas</button>
+      <button class="filter-chip provider-chip" data-pkg="nfx" onclick="setProviderFilter('nfx')"><span class="provider-dot" style="background:#e50914"></span>Netflix</button>
+      <button class="filter-chip provider-chip" data-pkg="prv" onclick="setProviderFilter('prv')"><span class="provider-dot" style="background:#00a8e1"></span>Prime Video</button>
+      <button class="filter-chip provider-chip" data-pkg="dnp" onclick="setProviderFilter('dnp')"><span class="provider-dot" style="background:#113ccf"></span>Disney+</button>
+      <button class="filter-chip provider-chip" data-pkg="mxx" onclick="setProviderFilter('mxx')"><span class="provider-dot" style="background:#7b2cbf"></span>Max (HBO)</button>
+      <button class="filter-chip provider-chip" data-pkg="gpl" onclick="setProviderFilter('gpl')"><span class="provider-dot" style="background:#ff4b00"></span>Globoplay</button>
+      <button class="filter-chip provider-chip" data-pkg="atp" onclick="setProviderFilter('atp')"><span class="provider-dot" style="background:#a1a1aa"></span>Apple TV+</button>
+      <button class="filter-chip provider-chip" data-pkg="pmp" onclick="setProviderFilter('pmp')"><span class="provider-dot" style="background:#0064ff"></span>Paramount+</button>
+      <button class="filter-chip provider-chip" data-pkg="fuv" onclick="setProviderFilter('fuv')"><span class="provider-dot" style="background:#f97316"></span>Crunchyroll</button>
+    </div>
+  </section>
+
+  <!-- Results Grid -->
+  <main class="main-container">
+    <div class="section-header">
+      <h3 class="section-title" id="sectionTitle">🔥 Em Alta no Brasil Hoje</h3>
+      <span class="results-count" id="resultsCount">Carregando catálogo...</span>
+    </div>
+
+    <div class="media-grid" id="mediaGrid"></div>
+  </main>
+
+  <!-- Details Modal -->
+  <div class="modal-backdrop" id="detailsModal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <footer>
+    <p>Onde Assistir? • Dados de disponibilidade atualizados em tempo real para o Brasil 🇧🇷</p>
+  </footer>
+
+  <script>
+    const IMAGES_BASE = 'https://images.justwatch.com';
+
+    const GRAPHQL_QUERY = `
+      query GetTitles($country: Country!, $language: Language!, $first: Int!, $filter: TitleFilter) {
+        popularTitles(country: $country, first: $first, filter: $filter) {
+          edges {
+            node {
+              id
+              objectType
+              objectId
+              content(country: $country, language: $language) {
+                fullPath
+                title
+                originalTitle
+                originalReleaseYear
+                runtime
+                shortDescription
+                posterUrl(profile: S592, format: WEBP)
+                backdrops {
+                  backdropUrl
+                }
+                scoring {
+                  imdbScore
+                  imdbVotes
+                  tmdbScore
+                }
+                genres {
+                  shortName
+                  translation(language: $language)
+                }
+                ageCertification
+              }
+              offers(country: $country, platform: WEB) {
+                id
+                monetizationType
+                presentationType
+                retailPrice(language: $language)
+                currency
+                standardWebURL
+                package {
+                  id
+                  packageId
+                  clearName
+                  shortName
+                  icon(profile: S100, format: WEBP)
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    // State
+    let currentQuery = '';
+    let currentType = 'ALL'; // ALL, MOVIE, SHOW
+    let currentPackage = ''; // '', 'nfx', 'prv', etc.
+    let currentItems = [];
+    let debounceTimer = null;
+
+    // Bridge queue
+    let bridgeReady = false;
+    let pendingRequests = new Map();
+    let queuedMessages = [];
+    let reqCounter = 1;
+
+    window.addEventListener('message', (event) => {
+      const msg = event.data || {};
+      if (msg.bridgeReady) {
+        bridgeReady = true;
+        const iframe = document.getElementById('jw-bridge');
+        while (queuedMessages.length > 0) {
+          iframe.contentWindow.postMessage(queuedMessages.shift(), '*');
+        }
+        return;
+      }
+      if (msg.requestId && pendingRequests.has(msg.requestId)) {
+        const { resolve, reject } = pendingRequests.get(msg.requestId);
+        pendingRequests.delete(msg.requestId);
+        if (msg.ok) resolve(msg.data);
+        else reject(new Error(msg.error || 'Erro na requisição'));
+      }
+    });
+
+    function callJustWatchAPI(payload) {
+      return new Promise((resolve, reject) => {
+        const requestId = 'req_' + (reqCounter++);
+        pendingRequests.set(requestId, { resolve, reject });
+        const iframe = document.getElementById('jw-bridge');
+        const message = { requestId, payload };
+        if (bridgeReady && iframe && iframe.contentWindow) {
+          iframe.contentWindow.postMessage(message, '*');
+        } else {
+          queuedMessages.push(message);
+        }
+        setTimeout(() => {
+          if (pendingRequests.has(requestId)) {
+            pendingRequests.delete(requestId);
+            reject(new Error('Tempo limite excedido'));
+          }
+        }, 12000);
+      });
+    }
+
+    function buildPosterUrl(posterUrl) {
+      if (!posterUrl) return null;
+      const formatted = posterUrl
+        .replace('{profile}', 's592')
+        .replace('{format}', 'webp');
+      return formatted.startsWith('http') ? formatted : IMAGES_BASE + formatted;
+    }
+
+    function buildBackdropUrl(backdrops) {
+      if (!backdrops || !backdrops.length || !backdrops[0].backdropUrl) return null;
+      const formatted = backdrops[0].backdropUrl
+        .replace('{profile}', 's1440')
+        .replace('{format}', 'webp');
+      return formatted.startsWith('http') ? formatted : IMAGES_BASE + formatted;
+    }
+
+    function buildIconUrl(icon) {
+      if (!icon) return null;
+      const formatted = icon
+        .replace('{profile}', 's100')
+        .replace('{format}', 'webp');
+      return formatted.startsWith('http') ? formatted : IMAGES_BASE + formatted;
+    }
+
+    // Deduplicate offers by packageId and monetization grouping
+    function groupOffers(offers) {
+      const groups = {
+        stream: [], // FLATRATE
+        free: [],   // FREE, ADS
+        rent: [],   // RENT
+        buy: []     // BUY
+      };
+      if (!Array.isArray(offers)) return groups;
+
+      const seen = {
+        stream: new Set(),
+        free: new Set(),
+        rent: new Set(),
+        buy: new Set()
+      };
+
+      for (const offer of offers) {
+        if (!offer || !offer.package) continue;
+        const pkgId = offer.package.packageId || offer.package.id;
+        const mType = offer.monetizationType;
+
+        let bucket = null;
+        if (mType === 'FLATRATE') bucket = 'stream';
+        else if (mType === 'FREE' || mType === 'ADS') bucket = 'free';
+        else if (mType === 'RENT') bucket = 'rent';
+        else if (mType === 'BUY') bucket = 'buy';
+
+        if (!bucket) continue;
+
+        if (!seen[bucket].has(pkgId)) {
+          seen[bucket].add(pkgId);
+          groups[bucket].push({
+            id: offer.id,
+            name: offer.package.clearName,
+            shortName: offer.package.shortName,
+            icon: buildIconUrl(offer.package.icon),
+            url: offer.standardWebURL,
+            quality: offer.presentationType ? offer.presentationType.replace('_', '') : '',
+            price: offer.retailPrice || null
+          });
+        }
+      }
+      return groups;
+    }
+
+    function renderSkeletons(count = 12) {
+      const grid = document.getElementById('mediaGrid');
+      grid.innerHTML = Array.from({ length: count })
+        .map(() => `<div class="skeleton-card shimmer"></div>`)
+        .join('');
+    }
+
+    async function fetchTitles() {
+      renderSkeletons(12);
+
+      const filter = { includeTitlesWithoutUrl: true };
+      if (currentQuery.trim()) {
+        filter.searchQuery = currentQuery.trim();
+      }
+      if (currentType !== 'ALL') {
+        filter.objectTypes = [currentType];
+      }
+      if (currentPackage) {
+        filter.packages = [currentPackage];
+      }
+
+      const titleEl = document.getElementById('sectionTitle');
+      if (currentQuery.trim()) {
+        titleEl.innerHTML = `🔎 Resultados para <span style="color:#818cf8">"${escapeHtml(currentQuery.trim())}"</span>`;
+      } else if (currentPackage) {
+        const activeBtn = document.querySelector(`#providerFilters [data-pkg="${currentPackage}"]`);
+        const pkgName = activeBtn ? activeBtn.textContent.trim() : 'Streaming';
+        titleEl.innerHTML = `🔥 Populares em <span style="color:#818cf8">${escapeHtml(pkgName)}</span>`;
+      } else {
+        titleEl.innerHTML = `🔥 Em Alta no Brasil Hoje`;
+      }
+
+      try {
+        const res = await callJustWatchAPI({
+          operationName: 'GetTitles',
+          variables: {
+            country: 'BR',
+            language: 'pt',
+            first: 28,
+            filter
+          },
+          query: GRAPHQL_QUERY
+        });
+
+        const edges = res?.data?.popularTitles?.edges || [];
+        currentItems = edges.map(e => e.node).filter(Boolean);
+        renderGrid(currentItems);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('mediaGrid').innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <div class="icon">⚠️</div>
+            <h3>Não foi possível carregar os resultados agora</h3>
+            <p style="margin-top:6px;">Verifique sua conexão com a internet e tente novamente.</p>
+          </div>
+        `;
+      }
+    }
+
+    function renderGrid(items) {
+      const grid = document.getElementById('mediaGrid');
+      const countEl = document.getElementById('resultsCount');
+      countEl.textContent = `${items.length} título(s) encontrado(s)`;
+
+      if (!items.length) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <div class="icon">🍿</div>
+            <h3>Nenhum filme ou série encontrado</h3>
+            <p style="margin-top:6px;">Tente buscar por outro nome ou limpar os filtros selecionados.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = items.map((item, idx) => {
+        const c = item.content || {};
+        const title = (c.title || c.originalTitle || 'Sem Título').trim();
+        const year = c.originalReleaseYear || '';
+        const isShow = item.objectType === 'SHOW';
+        const poster = buildPosterUrl(c.posterUrl);
+        const imdb = c.scoring?.imdbScore ? c.scoring.imdbScore.toFixed(1) : null;
+        const offers = groupOffers(item.offers);
+
+        const streamAndFree = [...offers.stream, ...offers.free];
+        let streamSectionHtml = '';
+
+        if (streamAndFree.length > 0) {
+          const visible = streamAndFree.slice(0, 3);
+          const extra = streamAndFree.length - visible.length;
+          streamSectionHtml = `
+            <div class="streams-label available">● Disponível em Streaming</div>
+            <div class="provider-icons-row">
+              ${visible.map(p => `
+                <div class="provider-mini" title="${escapeHtml(p.name)}">
+                  ${p.icon ? `<img src="${p.icon}" alt="${escapeHtml(p.name)}" loading="lazy" />` : ''}
+                  <span>${escapeHtml(p.name)}</span>
+                </div>
+              `).join('')}
+              ${extra > 0 ? `<span class="more-providers">+${extra}</span>` : ''}
+            </div>
+          `;
+        } else if (offers.rent.length > 0 || offers.buy.length > 0) {
+          const rentBuy = [...offers.rent, ...offers.buy].slice(0, 2);
+          streamSectionHtml = `
+            <div class="streams-label rent">● Aluguel ou Compra</div>
+            <div class="provider-icons-row">
+              ${rentBuy.map(p => `
+                <div class="provider-mini" title="${escapeHtml(p.name)}">
+                  ${p.icon ? `<img src="${p.icon}" alt="${escapeHtml(p.name)}" loading="lazy" />` : ''}
+                  <span>${escapeHtml(p.name)}</span>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        } else {
+          streamSectionHtml = `
+            <div class="streams-label unavailable">○ Indisponível em streaming</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Fora dos catálogos no momento</div>
+          `;
+        }
+
+        return `
+          <article class="media-card" onclick="openDetails(${idx})">
+            <div class="poster-wrap">
+              ${poster
+                ? `<img class="poster-img" src="${poster}" alt="${escapeHtml(title)}" loading="lazy" />`
+                : `<div class="poster-placeholder"><span>🎬</span>${escapeHtml(title)}</div>`
+              }
+              <span class="badge-top-left ${isShow ? 'show' : 'movie'}">
+                ${isShow ? '📺 Série' : '🎬 Filme'}
+              </span>
+              ${imdb ? `<span class="badge-rating">⭐ ${imdb}</span>` : ''}
+            </div>
+            <div class="card-body">
+              <div>
+                <h4 class="card-title" title="${escapeHtml(title)}">${escapeHtml(title)}</h4>
+                <div class="card-meta">
+                  ${year ? `<span>${year}</span>` : ''}
+                  ${c.runtime ? `<span>• ${c.runtime} min</span>` : ''}
+                  ${c.ageCertification ? `<span>• ${escapeHtml(c.ageCertification)}</span>` : ''}
+                </div>
+              </div>
+              <div class="card-streams">
+                ${streamSectionHtml}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function openDetails(index) {
+      const item = currentItems[index];
+      if (!item) return;
+
+      const c = item.content || {};
+      const title = (c.title || c.originalTitle || 'Sem Título').trim();
+      const origTitle = c.originalTitle && c.originalTitle.trim() !== title ? c.originalTitle.trim() : '';
+      const year = c.originalReleaseYear || '';
+      const isShow = item.objectType === 'SHOW';
+      const poster = buildPosterUrl(c.posterUrl);
+      const backdrop = buildBackdropUrl(c.backdrops) || poster;
+      const imdb = c.scoring?.imdbScore ? c.scoring.imdbScore.toFixed(1) : null;
+      const genres = (c.genres || []).map(g => g.translation || g.shortName).filter(Boolean);
+      const offers = groupOffers(item.offers);
+
+      const renderOfferGroup = (titleText, color, list, actionLabel) => {
+        if (!list.length) return '';
+        return `
+          <div class="offer-group">
+            <div class="offer-group-title" style="color:${color}">
+              ${titleText} (${list.length})
+            </div>
+            <div class="offer-grid">
+              ${list.map(p => `
+                <a class="offer-card" href="${p.url || '#'}" target="_blank" rel="noopener noreferrer">
+                  ${p.icon ? `<img src="${p.icon}" alt="${escapeHtml(p.name)}" />` : ''}
+                  <div class="offer-info">
+                    <div class="offer-name">${escapeHtml(p.name)}</div>
+                    <div class="offer-sub">
+                      ${p.quality ? `<span>${escapeHtml(p.quality)}</span>` : ''}
+                      ${p.price ? `<span>• ${escapeHtml(p.price)}</span>` : ''}
+                    </div>
+                  </div>
+                  <span class="offer-go">${actionLabel} ↗</span>
+                </a>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      };
+
+      const noOffers = !offers.stream.length && !offers.free.length && !offers.rent.length && !offers.buy.length;
+      const youtubeQuery = encodeURIComponent(`${title} ${year} trailer oficial legendado`);
+
+      const modalContent = document.getElementById('modalContent');
+      modalContent.innerHTML = `
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-hero" style="${backdrop ? `background-image: url('${backdrop}')` : ''}">
+          <div class="modal-header-info">
+            ${poster ? `<img class="modal-poster" src="${poster}" alt="${escapeHtml(title)}" />` : ''}
+            <div class="modal-title-group">
+              <div class="modal-tags" style="margin-bottom:8px;">
+                <span class="tag-pill" style="background:${isShow ? 'rgba(236,72,153,0.3)' : 'rgba(99,102,241,0.3)'}">
+                  ${isShow ? '📺 SÉRIE' : '🎬 FILME'}
+                </span>
+                ${year ? `<span class="tag-pill">📅 ${year}</span>` : ''}
+                ${imdb ? `<span class="tag-pill" style="color:#fbbf24">⭐ IMDb ${imdb}</span>` : ''}
+                ${c.runtime ? `<span class="tag-pill">⏱️ ${c.runtime} min</span>` : ''}
+                ${c.ageCertification ? `<span class="tag-pill">🔞 ${escapeHtml(c.ageCertification)}</span>` : ''}
+              </div>
+              <h2 class="modal-title">${escapeHtml(title)}</h2>
+              ${origTitle ? `<div class="modal-orig-title">Título original: ${escapeHtml(origTitle)}</div>` : ''}
+              <div class="modal-tags">
+                ${genres.map(g => `<span class="tag-pill">${escapeHtml(g)}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body">
+          <p class="modal-synopsis">
+            ${c.shortDescription ? escapeHtml(c.shortDescription) : 'Sinopse não informada para este título.'}
+          </p>
+
+          ${renderOfferGroup('🟢 Disponível por Assinatura (Stream)', '#34d399', offers.stream, 'Assistir')}
+          ${renderOfferGroup('🆓 Grátis para Assistir', '#38bdf8', offers.free, 'Assistir')}
+          ${renderOfferGroup('🟡 Disponível para Alugar', '#fbbf24', offers.rent, 'Alugar')}
+          ${renderOfferGroup('🔵 Disponível para Comprar', '#60a5fa', offers.buy, 'Comprar')}
+
+          ${noOffers ? `
+            <div class="offer-group" style="text-align:center; padding:28px;">
+              <div style="font-size:1.8rem; margin-bottom:6px;">😕</div>
+              <div style="font-weight:700;">Este título não está disponível nas plataformas digitais do Brasil no momento.</div>
+            </div>
+          ` : ''}
+
+          <a class="trailer-btn" href="https://www.youtube.com/results?search_query=${youtubeQuery}" target="_blank" rel="noopener noreferrer">
+            ▶ Ver Trailer no YouTube
+          </a>
+        </div>
+      `;
+
+      document.getElementById('detailsModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('detailsModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target.id === 'detailsModal') closeModal();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Search & Filters handlers
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearBtn');
+
+    searchInput.addEventListener('input', (e) => {
+      currentQuery = e.target.value;
+      clearBtn.style.display = currentQuery ? 'flex' : 'none';
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        fetchTitles();
+      }, 380);
+    });
+
+    function handleSearchSubmit(e) {
+      e.preventDefault();
+      clearTimeout(debounceTimer);
+      currentQuery = searchInput.value;
+      fetchTitles();
+    }
+
+    function clearSearch() {
+      searchInput.value = '';
+      currentQuery = '';
+      clearBtn.style.display = 'none';
+      searchInput.focus();
+      fetchTitles();
+    }
+
+    function setTypeFilter(type) {
+      currentType = type;
+      document.querySelectorAll('#typeFilters .filter-chip').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.type === type);
+      });
+      fetchTitles();
+    }
+
+    function setProviderFilter(pkg) {
+      currentPackage = pkg;
+      document.querySelectorAll('#providerFilters .filter-chip').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.pkg === pkg);
+      });
+      fetchTitles();
+    }
+
+    function resetHome() {
+      searchInput.value = '';
+      currentQuery = '';
+      clearBtn.style.display = 'none';
+      setTypeFilter('ALL');
+      setProviderFilter('');
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Initial load
+    fetchTitles();
+  </script>
+</body>
+</html>
